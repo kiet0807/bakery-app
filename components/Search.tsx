@@ -54,6 +54,7 @@ const Search: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
     <Flex {...BoxProps}>
       <Menu
         sx={{
+          transition: ["0.3s", "0.3s", "0.3s", "0.3s", "none"],
           width: isOpen && 0,
           opacity: isOpen && 0,
         }}

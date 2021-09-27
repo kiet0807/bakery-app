@@ -81,7 +81,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
         <Flex
           onClick={handleMenu}
           sx={{
-            px: 30,
+            px: [30, 30, 30, 30, 0],
             position: "relative",
             alignItems: "center",
             justifyContent: "center",
