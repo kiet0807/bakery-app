@@ -167,6 +167,7 @@ const index: FC<indexProps> = ({ data }) => {
       sx={{
         width: "100%",
         flexDirection: "column",
+        userSelect: "none",
       }}
     >
       <Head>

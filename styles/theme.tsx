@@ -165,6 +165,7 @@ export const theme: Theme = {
     },
     popupLabel: {
       fontSize: 1,
+      cursor: "pointer",
       fontWeight: "headline",
       letterSpacing: "2px",
       lineHeight: "20px",
