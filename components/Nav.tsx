@@ -106,13 +106,6 @@ const Nav: FC<NavProps> = ({
             ref={ref}
             sx={{
               position: "relative",
-              p: [
-                "10px 10px 10px 15px",
-                "10px 10px 10px 15px",
-                "10px 10px 10px 15px",
-                "10px 10px 10px 15px",
-                0,
-              ],
               transform: [
                 "scale(1)",
                 "scale(1)",
@@ -123,11 +116,7 @@ const Nav: FC<NavProps> = ({
               opacity: [1, 1, 1, 1, 0],
               transition: "0.3s",
               height: "100%",
-
               cursor: "pointer",
-              ":hover": {
-                svg: { fill: "productType1", transition: "0.3s" },
-              },
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -135,6 +124,13 @@ const Nav: FC<NavProps> = ({
             <Flex
               onClick={onAddress}
               sx={{
+                px: 15,
+                height: 70,
+                width: "100%",
+                alignItems: "center",
+                ":hover": {
+                  svg: { fill: "productType1", transition: "0.3s" },
+                },
                 ":active": {
                   transform: "scale(0.9)",
                 },

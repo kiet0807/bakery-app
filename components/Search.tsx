@@ -64,7 +64,10 @@ const Search: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
         mx={10}
         as="form"
         sx={{
-          transition: isOpen ? "0.5s" : "none",
+          transition: "0.5s",
+          visibility: isOpen ? "visible" : "hidden",
+          transform: !isOpen && "translateX(-1000px)",
+          userSelect: "none",
           width: isOpen ? "70%" : 0,
           opacity: isOpen ? 1 : 0,
           position: "relative",
@@ -97,6 +100,7 @@ const Search: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
 
       <Flex
         ml="auto"
+        px={15}
         onClick={handleSearch}
         sx={{
           alignItems: "center",

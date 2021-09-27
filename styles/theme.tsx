@@ -277,7 +277,7 @@ export const theme: Theme = {
       height: 25,
       borderRadius: 99,
       bg: "productType2",
-      top: -5,
+      top: 10,
       right: 0,
       zIndex: 1,
       alignItems: "center",

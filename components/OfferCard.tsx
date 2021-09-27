@@ -1,4 +1,5 @@
 import { Button, Flex, Image, Text } from "@theme-ui/components";
+import Link from "next/link";
 import React, { FC, memo } from "react";
 
 export interface OfferCardProps {
@@ -87,9 +88,11 @@ const OfferCard: FC<OfferCardProps> = ({ image, label, description }) => {
           transition: "0.2s",
         }}
       >
-        <Button className="button" p="12px 22px" variant="OfferButton">
-          READ MORE
-        </Button>
+        <Link href="#">
+          <Button className="button" p="12px 22px" variant="OfferButton">
+            READ MORE
+          </Button>
+        </Link>
       </Flex>
     </Flex>
   );

@@ -113,7 +113,7 @@ const Header: FC<HeaderProps> = ({ street, address, ...BoxProps }) => {
             }}
           >
             <Address width={40} height={40} />
-            <Link href="/">
+            <Link href="#">
               <Flex
                 ml={10}
                 sx={{

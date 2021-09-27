@@ -5,6 +5,7 @@ import {
   Flex,
   Grid,
   Image,
+  Link,
   Text,
 } from "@theme-ui/components";
 import React, { FC, memo, SVGProps, useState } from "react";
@@ -132,18 +133,20 @@ const ProductCard: FC<CardProps> = ({
               alignItems: "center",
             }}
           >
-            <Button
-              variant="productButton"
-              onMouseOver={() => setFirstBtn(true)}
-              onMouseLeave={() => setFirstBtn(false)}
-              pt={5}
-              sx={{
-                ":after": { transform: secondBtn && "scale(0.8)" },
-                svg: secondBtn && { transform: "scale(0.8)" },
-              }}
-            >
-              <Search width={33} height={33} />
-            </Button>
+            <Link href="#">
+              <Button
+                variant="productButton"
+                onMouseOver={() => setFirstBtn(true)}
+                onMouseLeave={() => setFirstBtn(false)}
+                pt={5}
+                sx={{
+                  ":after": { transform: secondBtn && "scale(0.8)" },
+                  svg: secondBtn && { transform: "scale(0.8)" },
+                }}
+              >
+                <Search width={33} height={33} />
+              </Button>
+            </Link>
           </Flex>
           <Flex
             sx={{

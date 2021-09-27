@@ -147,6 +147,7 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
         onClick={onCart}
         sx={{
           px: 15,
+          height: 70,
           width: "100%",
           position: "relative",
           alignItems: "center",

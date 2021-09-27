@@ -81,6 +81,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
         <Flex
           onClick={handleMenu}
           sx={{
+            px: 30,
             position: "relative",
             alignItems: "center",
             justifyContent: "center",
@@ -101,9 +102,8 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
         >
           <Flex
             sx={{
-              p: 15,
               position: "absolute",
-              left: 0,
+              left: 15,
               opacity: isOpen ? 0 : 1,
               transform: isOpen ? "rotate(-0.3turn)" : "none",
               transition: "0.3s",
@@ -113,9 +113,8 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
           </Flex>
           <Flex
             sx={{
-              p: 15,
               position: "absolute",
-              left: 0,
+              left: 15,
               opacity: isOpen ? 1 : 0,
               transform: isOpen ? "none" : "rotate(0.3turn)",
               transition: "0.3s",

@@ -221,14 +221,16 @@ const index: FC<indexProps> = ({ data }) => {
             <Text variant="ImageDescription">
               Sweet Bakery offers the best cakes and sweets for you.
             </Text>
-            <Button
-              mr="auto"
-              p="25px 50px"
-              variant="secondary"
-              sx={{ boxShadow: "#bebebe 0px 5px 12px 0px" }}
-            >
-              SHOP NOW
-            </Button>
+            <Link href="#">
+              <Button
+                mr="auto"
+                p="25px 50px"
+                variant="secondary"
+                sx={{ boxShadow: "#bebebe 0px 5px 12px 0px" }}
+              >
+                SHOP NOW
+              </Button>
+            </Link>
           </Flex>
         </Flex>
       </Flex>
@@ -283,21 +285,23 @@ const index: FC<indexProps> = ({ data }) => {
               with only the highest quality ingredients. We bake and sell fresh
               daily to ensure only the best products are sold to our customers.
             </Text>
-            <Button
-              className="button"
-              variant="secondary"
-              pt={4}
-              sx={{
-                width: 50,
-                height: 50,
-                borderRadius: 99,
-                opacity: 0.5,
-                transform: "scale(0.5)",
-                boxShadow: "#959da5 0px 12px 24px 0px",
-              }}
-            >
-              <Arrow width={15} height={15} />
-            </Button>
+            <Link href="#">
+              <Button
+                className="button"
+                variant="secondary"
+                pt={4}
+                sx={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 99,
+                  opacity: 0.5,
+                  transform: "scale(0.5)",
+                  boxShadow: "#959da5 0px 12px 24px 0px",
+                }}
+              >
+                <Arrow width={15} height={15} />
+              </Button>
+            </Link>
           </Flex>
         </Flex>
       </Flex>
