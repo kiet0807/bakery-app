@@ -124,7 +124,7 @@ const Nav: FC<NavProps> = ({
             <Flex
               onClick={onAddress}
               sx={{
-                px: 15,
+                px: [15, 15, 15, 15, 0],
                 height: 70,
                 width: "100%",
                 alignItems: "center",
@@ -152,7 +152,7 @@ const Nav: FC<NavProps> = ({
                 width: 270,
                 boxShadow: "#959da5 0px 12px 24px 0px",
 
-                transform: isOpen ? "scaleX(1)" : "scaleX(0)",
+                transform: isOpen ? "scale(1)" : "scale(0)",
                 transition: "0.3s",
               }}
             >

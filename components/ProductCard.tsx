@@ -9,6 +9,7 @@ import {
   Text,
 } from "@theme-ui/components";
 import React, { FC, memo, SVGProps, useState } from "react";
+import { formatCurrency } from "../utils/functions";
 
 const Search: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -109,12 +110,12 @@ const ProductCard: FC<CardProps> = ({
         <Flex my={5}>
           {priceOld && (
             <Text variant="productPriceOld">
-              {priceOld}
+              {formatCurrency(priceOld)}
               <Text as="sup">đ</Text>
             </Text>
           )}
           <Text ml={12} variant="productPrice">
-            {price}
+            {formatCurrency(price)}
             <Text as="sup">đ</Text>
           </Text>
         </Flex>

@@ -2,7 +2,8 @@ import { Button, Flex, Grid, Image, Text } from "@theme-ui/components";
 import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
-import React, { FC, memo, SVGProps, useCallback } from "react";
+import React, { FC, memo, SVGProps, useCallback, useState } from "react";
+import ChooseUs, { ChooseUsProps } from "../components/ChooseUs";
 import { ElementItem } from "../components/ElementsCard";
 import Header, { HeaderProps } from "../components/Header";
 import { ItemProps } from "../components/Menu";
@@ -94,6 +95,68 @@ const offerItems: OfferCardProps[] = [
   },
 ];
 
+const ChooseUsItems: ChooseUsProps[] = [
+  {
+    id: "1",
+    label: "QUALITY PRODUCTS",
+    content:
+      "We guarantee the quality of all the cakes we provide as they are baked using the freshest ingredients.",
+  },
+  {
+    id: "2",
+    label: "FREE DELIVERY",
+    content:
+      "We guarantee the quality of all the cakes we provide as they are baked using the freshest ingredients.",
+  },
+  {
+    id: "3",
+    label: "CATERING SERVICE",
+    content:
+      "Our bakery also provides an outstanding catering service for events and special occasions.",
+  },
+  {
+    id: "4",
+    label: "ONLINE PAYMENT",
+    content:
+      "We accept all kinds of online payments including Visa, MasterCard, American Express credit cards.",
+  },
+];
+
+interface AboutUsProps {
+  id?: number;
+  button?: string;
+  label?: string;
+  href?: string;
+  content?: string;
+}
+
+const AboutUsItems: AboutUsProps[] = [
+  {
+    id: 1,
+    button: "OUT MISSION",
+    label: "PROVIDING QUALITY BAKED GOODS FOR ALL CUSTOMERS",
+    href: "#",
+    content:
+      "Our mission is to create a bakery that makes the best quality baked goods on site from scratch, and where both employees and customers would feel comfortable.",
+  },
+  {
+    id: 2,
+    button: "OUR VALUES",
+    label: "ENSURING THE BEST ATMOSPHERE FOR EVERYONE",
+    href: "#",
+    content:
+      "We see the most important part of our business in ensuring the happiness of our staff and the satisfaction of our clients by creating a welcoming and caring atmosphere.",
+  },
+  {
+    id: 3,
+    button: "OUR GOALS",
+    label: "SERVING ONLY THE FRESHEST BAKED GOODS FOR YOU",
+    href: "#",
+    content:
+      "We aim to deliver the best baked goods for corporate events and individual celebrations, while also offering the best level of customer service in the United States.",
+  },
+];
+
 const Arrow: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     version="1.1"
@@ -115,13 +178,75 @@ const Arrow: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const Flower: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M12 16.114c-3.998-5.951-8.574-7.043-8.78-7.09L2 8.75V10c0 7.29 3.925 12 10 12c5.981 0 10-4.822 10-12V8.75l-1.22.274c-.206.047-4.782 1.139-8.78 7.09z" />
+    <path d="M11.274 3.767c-1.799 1.898-2.84 3.775-3.443 5.295c1.329.784 2.781 1.943 4.159 3.685c1.364-1.76 2.826-2.925 4.17-3.709c-.605-1.515-1.646-3.383-3.435-5.271L12 3l-.726.767z" />
+  </svg>
+);
+
+const CardIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    fill="currentColor"
+    {...props}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM4 18V6h16l.001 12H4z" />
+    <path d="M6.5 11h3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5zM6 14h6v2.001H6zm7 0h5v2.001h-5z" />
+  </svg>
+);
+
+const Cookie: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    fill="currentColor"
+    {...props}
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+  >
+    <path d="M21.598 11.064a1.006 1.006 0 0 0-.854-.172A2.938 2.938 0 0 1 20 11c-1.654 0-3-1.346-3.003-2.937c.005-.034.016-.136.017-.17a.998.998 0 0 0-1.254-1.006A2.963 2.963 0 0 1 15 7c-1.654 0-3-1.346-3-3c0-.217.031-.444.099-.716a1 1 0 0 0-1.067-1.236A9.956 9.956 0 0 0 2 12c0 5.514 4.486 10 10 10s10-4.486 10-10c0-.049-.003-.097-.007-.16a1.004 1.004 0 0 0-.395-.776zM12 20c-4.411 0-8-3.589-8-8a7.962 7.962 0 0 1 6.006-7.75A5.006 5.006 0 0 0 15 9l.101-.001a5.007 5.007 0 0 0 4.837 4C19.444 16.941 16.073 20 12 20z" />
+    <circle cx="12.5" cy="11.5" r="1.5" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <circle cx="7.5" cy="12.5" r="1.5" />
+    <circle cx="15.5" cy="15.5" r="1.5" />
+    <circle cx="10.5" cy="16.5" r="1.5" />
+  </svg>
+);
+
+const Van: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    role="img"
+    preserveAspectRatio="xMidYMid meet"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M19.15 8a2 2 0 0 0-1.72-1H15V5a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 1 1.73a3.49 3.49 0 0 0 7 .27h3.1a3.48 3.48 0 0 0 6.9 0a2 2 0 0 0 2-2v-3a1.07 1.07 0 0 0-.14-.52zM15 9h2.43l1.8 3H15zM6.5 19A1.5 1.5 0 1 1 8 17.5A1.5 1.5 0 0 1 6.5 19zm10 0a1.5 1.5 0 1 1 1.5-1.5a1.5 1.5 0 0 1-1.5 1.5z" />
+  </svg>
+);
+
 interface indexProps {
   data: CardProps[];
 }
 
 const index: FC<indexProps> = ({ data }) => {
   const [cart, setCart] = useLocalStorage("cart", []);
-
+  const [page, setPage] = useState<number>(1);
   const onAddCart = useCallback(
     (id: string) => {
       const index = cart.findIndex((item) => item.id === id);
@@ -133,6 +258,10 @@ const index: FC<indexProps> = ({ data }) => {
     },
     [cart]
   );
+
+  const onPage = useCallback((id: number) => {
+    setPage(id);
+  }, []);
 
   const onPlus = useCallback(
     (index: number) => {
@@ -163,7 +292,6 @@ const index: FC<indexProps> = ({ data }) => {
   return (
     <Flex
       bg="white"
-      mb={200}
       sx={{
         width: "100%",
         flexDirection: "column",
@@ -379,6 +507,328 @@ const index: FC<indexProps> = ({ data }) => {
               VIEW ALL
             </Button>
           </Link>
+        </Flex>
+      </Flex>
+      <Flex
+        sx={{
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <Flex
+          sx={{
+            py: 60,
+            width: 1170,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Text my={60} variant="offerLabel1">
+            WHY CHOOSE US
+          </Text>
+          <Grid
+            columns={["5fr 0 5fr", "5fr 0 5fr", "5fr 0 5fr", 3, 3]}
+            gap={[20, 20, 20, 0, 0]}
+          >
+            <Flex sx={{ flexDirection: "column" }}>
+              {ChooseUsItems.filter(
+                (item) => item.id === "1" || item.id === "2"
+              ).map((item) => (
+                <ChooseUs
+                  label={item.label}
+                  content={item.content}
+                  key={item.id}
+                  id={item.id}
+                >
+                  {item.id === "1" ? (
+                    <Cookie width={45} height={45} />
+                  ) : (
+                    <Van width={45} height={45} />
+                  )}
+                </ChooseUs>
+              ))}
+            </Flex>
+            <Flex
+              sx={{
+                transition: "0.3s",
+                transform: [
+                  "scale(0)",
+                  "scale(0)",
+                  "scale(0)",
+                  "scale(1)",
+                  "scale(1)",
+                ],
+              }}
+            >
+              <Image
+                src="images/why-choose-us.jpg"
+                alt="whyChooseUs"
+                sx={{
+                  objectFit: "scale-down",
+                }}
+              />
+            </Flex>
+            <Flex sx={{ flexDirection: "column" }}>
+              {ChooseUsItems.filter(
+                (item) => item.id === "3" || item.id === "4"
+              ).map((item) => (
+                <ChooseUs
+                  label={item.label}
+                  content={item.content}
+                  key={item.id}
+                  id={item.id}
+                >
+                  {item.id === "3" ? (
+                    <Flower width={45} height={45} />
+                  ) : (
+                    <CardIcon width={45} height={45} />
+                  )}
+                </ChooseUs>
+              ))}
+            </Flex>
+          </Grid>
+        </Flex>
+      </Flex>
+      <Flex
+        sx={{
+          width: "100%",
+          position: "relative",
+          justifyContent: "center",
+          background: "url(images/parallax-bg.jpg) no-repeat center/cover",
+          backgroundAttachment: "fixed",
+          ":before": {
+            content: "''",
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            bg: ["white", "white", "white", "transparent", "transparent"],
+            opacity: 0.7,
+          },
+        }}
+      >
+        <Flex
+          sx={{
+            py: 60,
+            width: 1170,
+            justifyContent: ["center", "center", "center", "left", "left"],
+          }}
+        >
+          <Flex
+            sx={{
+              mx: 15,
+              transition: "0.3s",
+              flexDirection: "column",
+              width: ["80%", "80%", "45%", "45%", "45%"],
+            }}
+          >
+            <Text
+              mt={60}
+              variant="offerLabel1"
+              sx={{
+                textAlign: ["center", "center", "center", "left", "left"],
+                zIndex: 1,
+              }}
+            >
+              SUMMER SALE
+            </Text>
+
+            <Text
+              my={15}
+              variant="ImageLabel1"
+              sx={{
+                fontSize: 40,
+                textAlign: ["center", "center", "center", "left", "left"],
+                zIndex: 1,
+              }}
+            >
+              -20%
+              <Text
+                ml={15}
+                variant="ChooseLabel"
+                sx={{ letterSpacing: "2px", fontFamily: "sans-serif" }}
+              >
+                ON ALL CAKES
+              </Text>
+            </Text>
+
+            <Text
+              variant="ChooseContent"
+              sx={{ textAlign: ["center", "center", "center", "left", "left"] }}
+            >
+              Purchase our tasty cakes and sweets for your next event or family
+              dinner at our online shop and save more money than anywhere.
+            </Text>
+            <Flex
+              m="20px 0 60px"
+              sx={{
+                justifyContent: ["center", "center", "center", "left", "left"],
+              }}
+            >
+              <Button
+                p="25px 50px"
+                variant="secondary"
+                sx={{ boxShadow: "#bebebe 0px 5px 12px 0px" }}
+              >
+                SHOP NOW
+              </Button>
+            </Flex>
+          </Flex>
+        </Flex>
+      </Flex>
+      <Flex
+        sx={{
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <Flex
+          sx={{
+            py: 60,
+            width: [600, 600, 700, 1170, 1170],
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Text my={60} variant="offerLabel1">
+            About Us
+          </Text>
+          <Grid columns={[1, 1, 1, 2, 2]} gap={0}>
+            <Flex
+              sx={{
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                px={15}
+                src="images/about.jpg"
+                alt="aboutUs"
+                sx={{
+                  objectFit: "cover",
+                  height: 510,
+                }}
+              />
+            </Flex>
+
+            <Flex
+              px={15}
+              sx={{
+                flexDirection: "column",
+              }}
+            >
+              <Flex
+                mt={[40, 40, 40, 0, 0]}
+                sx={{
+                  p: "8% 4% 10% 18%",
+                  flexDirection: "column",
+                  position: "relative",
+                  bg: "transparent",
+                  zIndex: 1,
+                  ":after": {
+                    content: "''",
+                    position: "absolute",
+                    height: "calc(100% - 30px)",
+                    border: "15px solid #f5f5f5",
+                    top: 0,
+                    left: 0,
+                    zIndex: -1,
+                    width: "38%",
+                  },
+                }}
+              >
+                <Flex
+                  sx={{
+                    bg: "white",
+                    flexDirection: "column",
+                    py: 24,
+                  }}
+                >
+                  <Text
+                    variant="ChooseLabel"
+                    sx={{
+                      cursor: "pointer",
+                      ":hover": {
+                        color: "productType1",
+                      },
+                    }}
+                  >
+                    {AboutUsItems[page - 1].label}
+                  </Text>
+                  <Text
+                    variant="ChooseContent"
+                    sx={{
+                      fontSize: [10, 12, 12, 14, 14],
+                      height: 80,
+                      overflow: "hidden",
+                    }}
+                  >
+                    {AboutUsItems[page - 1].content}
+                  </Text>
+                </Flex>
+                <Flex
+                  sx={{
+                    justifyContent: "center",
+                  }}
+                >
+                  <Link href={AboutUsItems[page - 1].href}>
+                    <Button
+                      className="button"
+                      p="12px 22px"
+                      variant="OfferButton"
+                      sx={{
+                        ":hover": {
+                          transform: "translateY(10px)",
+                          opacity: 0.9,
+                          ":before": {
+                            transform: "scale(1)",
+                            borderColor: "productType1",
+                          },
+                        },
+                      }}
+                    >
+                      READ MORE
+                    </Button>
+                  </Link>
+                </Flex>
+              </Flex>
+              <Flex
+                mt={[40, 40, 40, "auto", "auto"]}
+                bg="aboutUs"
+                sx={{
+                  justifyContent: "space-around",
+                  width: "100%",
+                  counterReset: "item",
+                  alignItems: "center",
+                }}
+              >
+                {AboutUsItems.map((item) => (
+                  <Button
+                    onClick={() => onPage(item.id)}
+                    py={50}
+                    m={0}
+                    key={item.id}
+                    bg="aboutUs"
+                    variant="AboutUsButton"
+                    sx={{
+                      opacity: page === item.id ? 1 : 0.5,
+                      color: page === item.id ? "productType1" : "productType2",
+                      ":after": {
+                        color:
+                          page === item.id ? "productType1" : "productType2",
+                      },
+                      ":before": {
+                        transform:
+                          page === item.id
+                            ? "translate(-50%, -100%)"
+                            : "translateY(-50%)",
+                      },
+                    }}
+                  >
+                    {item.button}
+                  </Button>
+                ))}
+              </Flex>
+            </Flex>
+          </Grid>
         </Flex>
       </Flex>
     </Flex>

@@ -9,6 +9,7 @@ import React, {
   useState,
 } from "react";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import { formatCurrency } from "../utils/functions";
 import { CardProps } from "./ProductCard";
 
 const CartIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
@@ -115,8 +116,8 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
-  const [sumPrice, setSumPrice] = useState<Number>(0);
-  const [sumProduct, setSumProduct] = useState<Number>(0);
+  const [sumPrice, setSumPrice] = useState<number>(0);
+  const [sumProduct, setSumProduct] = useState<number>(0);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -195,7 +196,7 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
           borderRadius: "4px 0 0 4px",
           bg: "white",
           top: 0,
-          right: isOpen ? 0 : -400,
+          right: isOpen ? 0 : -430,
           width: 400,
           bottom: 0,
           boxShadow: "#959da5 0px 12px 24px 0px",
@@ -212,7 +213,7 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
             <Text variant="cartLabel">IN CART: {sumProduct} PRODUCT</Text>
 
             <Text variant="cartLabel1">
-              TOTAL PRICE: {sumPrice}
+              TOTAL PRICE: {formatCurrency(sumPrice)}
               <Text as="sup">Đ</Text>
             </Text>
           </Flex>
@@ -324,12 +325,12 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
                   >
                     {item.product.priceOld && (
                       <Text variant="cartItemPriceOld">
-                        {item.product.priceOld * item.quantity}
+                        {formatCurrency(item.product.priceOld * item.quantity)}
                         <Text as="sup">đ</Text>
                       </Text>
                     )}
                     <Text variant="cartItemPrice">
-                      {item.product.price * item.quantity}
+                      {formatCurrency(item.product.price * item.quantity)}
                       <Text as="sup">đ</Text>
                     </Text>
                   </Flex>

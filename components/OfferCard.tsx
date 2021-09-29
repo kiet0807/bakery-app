@@ -89,7 +89,17 @@ const OfferCard: FC<OfferCardProps> = ({ image, label, description }) => {
         }}
       >
         <Link href="#">
-          <Button className="button" p="12px 22px" variant="OfferButton">
+          <Button
+            className="button"
+            p="12px 22px"
+            variant="OfferButton"
+            sx={{
+              ":hover": {
+                bg: "productType1",
+                color: "white",
+              },
+            }}
+          >
             READ MORE
           </Button>
         </Link>

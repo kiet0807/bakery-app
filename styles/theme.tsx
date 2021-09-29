@@ -20,6 +20,7 @@ export const theme: Theme = {
     productType5: "#eeaac5",
     productType3: "#993860",
     productType2: "#151515",
+    aboutUs: "#f5f5f5",
     productButton: "#a30e4c",
     productPriceOld: "#777777",
     text: "#10182B",
@@ -77,8 +78,27 @@ export const theme: Theme = {
     },
   },
   text: {
+    ChooseLabel: {
+      color: "productType2",
+      fontSize: [20, 20, 22, 24, 24],
+      fontWeight: 700,
+      letterSpacing: "1px",
+      lineHeight: "33px",
+      transition: "0.3s",
+    },
+    ChooseContent: {
+      color: "productType2",
+      fontSize: 15,
+      fontWeight: 500,
+      opacity: 0.8,
+      letterSpacing: "0.5px",
+      lineHeight: "24px",
+      mt: 14,
+    },
+
     OfferLabel: {
       fontSize: [18, 16, 20, 24, 24],
+      transition: "0.3s",
       fontWeight: 600,
       letterSpacing: "2px",
       lineHeight: "33px",
@@ -88,6 +108,7 @@ export const theme: Theme = {
     OfferDescription: {
       pt: 15,
       fontSize: [12, 12, 12, 15, 15],
+      transition: "0.3s",
       fontWeight: 500,
       letterSpacing: "0.5px",
       lineHeight: "24px",
@@ -395,6 +416,39 @@ export const theme: Theme = {
     },
   },
   buttons: {
+    AboutUsButton: {
+      position: "relative",
+      cursor: "pointer",
+      transition: "0.3s",
+      letterSpacing: "0.5px",
+      fontSize: 15,
+      zIndex: 1,
+      fontWeight: 500,
+
+      ":after": {
+        content: "counter(item, decimal-leading-zero)",
+        counterIncrement: "item",
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+        transition: "0.3s",
+        opacity: 0.1,
+        fontSize: 100,
+        fontFamily: "sans-serif",
+        fontWeight: 300,
+        zIndex: -1,
+      },
+      ":before": {
+        content: "''",
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        border: "14px solid transparent",
+        borderBottomColor: "aboutUs",
+        transition: "0.3s",
+      },
+    },
     OfferButton: {
       bg: "white",
       fontSize: 14,
@@ -416,10 +470,6 @@ export const theme: Theme = {
         borderBottomColor: "productType2",
         height: "calc(100% - 4px)",
         width: "calc(100% - 4px)",
-      },
-      ":hover": {
-        bg: "productType1",
-        color: "white",
       },
     },
 
