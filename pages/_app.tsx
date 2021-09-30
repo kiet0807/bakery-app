@@ -5,7 +5,7 @@ import { ThemeProvider } from "theme-ui";
 import { theme } from "../styles/theme";
 import NProgress from "nprogress";
 import Router from "next/router";
-import { FC } from "react";
+import React, { FC } from "react";
 
 NProgress.configure({ showSpinner: false });
 Router.events.on("routeChangeStart", () => NProgress.start());

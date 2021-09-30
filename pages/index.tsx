@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { FC, memo, SVGProps, useCallback, useState } from "react";
 import ChooseUs, { ChooseUsProps } from "../components/ChooseUs";
 import { ElementItem } from "../components/ElementsCard";
+import Footer from "../components/Footer";
 import Header, { HeaderProps } from "../components/Header";
 import { ItemProps } from "../components/Menu";
 import Nav from "../components/Nav";
@@ -68,7 +69,7 @@ export const elements: ElementItem = {
 
 export const address: HeaderProps = {
   street: "111 Đặng Thùy Trâm",
-  address: "Phường 13, Bình Thạnh, HCM",
+  address: "Phường 13, Quận Bình Thạnh, TP.HCM",
 };
 
 const offerItems: OfferCardProps[] = [
@@ -683,7 +684,7 @@ const index: FC<indexProps> = ({ data }) => {
       >
         <Flex
           sx={{
-            py: 60,
+            p: "60px 0 100px",
             width: [600, 600, 700, 1170, 1170],
             flexDirection: "column",
             alignItems: "center",
@@ -831,6 +832,29 @@ const index: FC<indexProps> = ({ data }) => {
           </Grid>
         </Flex>
       </Flex>
+      <Flex
+        sx={{
+          width: "100%",
+          justifyContent: "center",
+          background: "url(images/bg-partner.jpg) no-repeat center/cover",
+        }}
+      >
+        <Flex
+          sx={{
+            py: 100,
+            width: 1170,
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
+          <Image px={15} src="images/partner-1.png" />
+          <Image px={15} src="images/partner-2.png" />
+          <Image px={15} src="images/partner-3.png" />
+          <Image px={15} src="images/partner-4.png" />
+          <Image px={15} src="images/partner-5.png" />
+        </Flex>
+      </Flex>
+      <Footer />
     </Flex>
   );
 };

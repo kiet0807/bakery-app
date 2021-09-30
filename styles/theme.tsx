@@ -78,6 +78,20 @@ export const theme: Theme = {
     },
   },
   text: {
+    FooterContent: {
+      color: "productType2",
+      fontSize: 15,
+      letterSpacing: "1px",
+      lineHeight: "25px",
+    },
+    FooterLabel: {
+      color: "productType2",
+      fontSize: 18,
+      fontWeight: 700,
+      letterSpacing: "3px",
+      lineHeight: "25px",
+    },
+
     ChooseLabel: {
       color: "productType2",
       fontSize: [20, 20, 22, 24, 24],
@@ -180,7 +194,7 @@ export const theme: Theme = {
     },
     address: {
       lineHeight: 3,
-      fontSize: 1,
+      fontSize: 13,
       letterSpacing: 0.3,
       fontWeight: "headline",
     },
