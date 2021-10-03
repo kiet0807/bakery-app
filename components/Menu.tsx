@@ -1,4 +1,4 @@
-import { BoxProps, Flex, Text, Image, Label } from "@theme-ui/components";
+import { BoxProps, Flex, Text, Image } from "@theme-ui/components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, {
@@ -10,8 +10,9 @@ import React, {
   useState,
 } from "react";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import { elements, menuItems } from "../pages";
 import { Close } from "./Cart";
-import ElementsCard, { ElementItem } from "./ElementsCard";
+import ElementsCard from "./ElementsCard";
 import ItemMenu from "./ItemMenu";
 
 const Arrow: FC<SVGProps<SVGSVGElement>> = (props) => (
@@ -60,12 +61,7 @@ export interface ItemProps {
   content?: string[];
 }
 
-export interface MenuProps extends BoxProps {
-  items?: ItemProps[];
-  elements?: ElementItem;
-}
-
-const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
+const Menu: FC<BoxProps> = ({ ...BoxProps }) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
@@ -105,7 +101,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
               position: "absolute",
               left: 15,
               opacity: isOpen ? 0 : 1,
-              transform: isOpen ? "rotate(-0.3turn)" : "none",
+              transform: isOpen ? "rotate(-0.3turn)" : "rotate(0)",
               transition: "0.3s",
             }}
           >
@@ -116,7 +112,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
               position: "absolute",
               left: 15,
               opacity: isOpen ? 1 : 0,
-              transform: isOpen ? "none" : "rotate(0.3turn)",
+              transform: isOpen ? "rotate(0)" : "rotate(0.3turn)",
               transition: "0.3s",
             }}
           >
@@ -152,7 +148,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
               },
             }}
           >
-            {items.map((item) => (
+            {menuItems.map((item) => (
               <Flex key={item.id}>
                 {item.id !== "6" ? (
                   <ItemMenu
@@ -183,7 +179,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
               </Flex>
             ))}
           </Flex>
-          <Link href="/">
+          <Link href="/" passHref>
             <Image
               sx={{
                 mt: "auto",
@@ -197,6 +193,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
                 zIndex: 50,
               }}
               src="images/logo.png"
+              alt="images/logo.png"
             />
           </Link>
         </Flex>
@@ -216,7 +213,7 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
           ],
         }}
       >
-        {items.map((item) => (
+        {menuItems.map((item) => (
           <Flex
             mx={20}
             key={item.id}
@@ -284,7 +281,9 @@ const Menu: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
                   >
                     {item.content.map((x, index) => (
                       <Text key={index} variant="popupContent">
-                        <Link href="#">{x}</Link>
+                        <Link href="#" passHref>
+                          {x}
+                        </Link>
                       </Text>
                     ))}
                   </Flex>

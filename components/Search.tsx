@@ -1,6 +1,6 @@
-import { Button, Flex, Input } from "@theme-ui/components";
+import { BoxProps, Button, Flex, Input } from "@theme-ui/components";
 import React, { FC, memo, SVGProps, useCallback, useState } from "react";
-import Menu, { MenuProps } from "./Menu";
+import Menu from "./Menu";
 
 const SearchIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -44,7 +44,7 @@ const Close: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-const Search: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
+const Search: FC<BoxProps> = ({ ...BoxProps }) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const handleSearch = useCallback(() => {
     setIsOpen(!isOpen);
@@ -55,17 +55,16 @@ const Search: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
       <Menu
         sx={{
           transition: ["0.3s", "0.3s", "0.3s", "0.3s", "none"],
+          visibility: !isOpen ? "visible" : "hidden",
           width: isOpen && 0,
           opacity: isOpen && 0,
         }}
-        items={items}
-        elements={elements}
       />
       <Flex
         mx={10}
         as="form"
         sx={{
-          transition: "0.5s",
+          transition: "0.3s",
           visibility: isOpen ? "visible" : "hidden",
           transform: !isOpen && "translateX(-1000px)",
           userSelect: "none",
@@ -114,7 +113,6 @@ const Search: FC<MenuProps> = ({ items, elements, ...BoxProps }) => {
         }}
       >
         <Flex
-          mt={4}
           sx={{
             position: "absolute",
             right: 5,

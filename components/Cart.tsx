@@ -1,4 +1,5 @@
 import { Button, Flex, Grid, Image, Text } from "@theme-ui/components";
+
 import React, {
   FC,
   memo,
@@ -8,8 +9,9 @@ import React, {
   useRef,
   useState,
 } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import { formatCurrency } from "../utils/functions";
+import { formatCurrency } from "../utils/format";
 import { CardProps } from "./ProductCard";
 
 const CartIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
@@ -95,15 +97,12 @@ export const Close: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-interface Product {
+export interface ProductProps {
   product?: CardProps;
   quantity?: number;
 }
 
 export interface CartProps {
-  onPlus?: (index: number) => void;
-  onMinus?: (index: number) => void;
-  onDelete?: (index: number) => void;
   data?: CardProps[];
   cart?: {
     id?: string;
@@ -112,35 +111,55 @@ export interface CartProps {
   }[];
 }
 
-const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
+const Cart: FC<CartProps> = () => {
+  const [cart, setCart] = useLocalStorage<ProductProps[]>("cart", []);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
   const [sumPrice, setSumPrice] = useState<number>(0);
   const [sumProduct, setSumProduct] = useState<number>(0);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [items, setItems] = useState<ProductProps[]>([]);
 
   useEffect(() => {
-    setProducts(
-      cart.map((item) => ({
-        product: data.find((x) => x.id === item.id),
-        quantity: item.quantity,
-      }))
-    );
+    setItems(cart);
   }, [cart]);
 
   useEffect(() => {
     setSumPrice(
-      products
+      cart
         .map((item) => item.quantity * item.product.price)
         .reduce((x, y) => x + y, 0)
     );
-    setSumProduct(
-      products.map((item) => item.quantity).reduce((x, y) => x + y, 0)
-    );
-  }, [products]);
+    setSumProduct(cart.map((item) => item.quantity).reduce((x, y) => x + y, 0));
+  }, [cart]);
 
   const onCart = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+
+  const onPlus = useCallback(
+    (index: number) => {
+      cart[index].quantity += 1;
+      setCart(cart);
+    },
+    [cart]
+  );
+
+  const onMinus = useCallback(
+    (index: number) => {
+      cart[index].quantity > 1
+        ? (cart[index].quantity -= 1)
+        : cart.splice(index, 1);
+      setCart(cart);
+    },
+    [cart]
+  );
+
+  const onDelete = useCallback(
+    (index: number) => {
+      cart.splice(index, 1);
+      setCart(cart);
+    },
+    [cart]
+  );
 
   return (
     <Flex>
@@ -161,9 +180,6 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
           ":hover": {
             text: { bg: "productType1" },
             svg: { fill: "productType1", transition: "0.3s" },
-          },
-          ":active": {
-            transform: "scale(0.9)",
           },
         }}
       >
@@ -228,9 +244,6 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
               ":hover": {
                 svg: { fill: "productType1" },
               },
-              ":active": {
-                transform: "scale(0.9)",
-              },
             }}
           >
             <Close width={15} height={15} />
@@ -250,7 +263,7 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
             },
           }}
         >
-          {products.map((item, index) => (
+          {items.map((item, index) => (
             <Flex p="0 9px 20px 0" key={item.product.id}>
               <Flex
                 sx={{
@@ -284,9 +297,6 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
                       cursor: "pointer",
                       ":hover": {
                         fill: "productType1",
-                      },
-                      ":active": {
-                        transform: "scale(0.9)",
                       },
                     },
                   }}
@@ -340,7 +350,7 @@ const Cart: FC<CartProps> = ({ data, cart, onPlus, onMinus, onDelete }) => {
           ))}
         </Flex>
         <Grid columns={2} variant="cartButton">
-          <Button variant="primary" onClick={onCart}>
+          <Button p="20px 30px" variant="primary" onClick={onCart}>
             GO TO CART
           </Button>
           <Button variant="secondary" onClick={onCart}>

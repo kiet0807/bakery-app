@@ -88,7 +88,7 @@ const OfferCard: FC<OfferCardProps> = ({ image, label, description }) => {
           transition: "0.2s",
         }}
       >
-        <Link href="#">
+        <Link href="#" passHref>
           <Button
             className="button"
             p="12px 22px"

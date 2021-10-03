@@ -66,7 +66,7 @@ const ChooseUs: FC<PropsWithChildren<ChooseUsProps>> = ({
               : ["center", "center", "center", "center", "left"],
         }}
       >
-        <Link href="#">
+        <Link href="#" passHref>
           <Text
             variant="ChooseLabel"
             sx={{
@@ -110,7 +110,7 @@ const ChooseUs: FC<PropsWithChildren<ChooseUsProps>> = ({
             width={70}
             height={70}
             opacity={0.07}
-            transform={id === "1" || id === "2" ? "rotate(80)" : "none"}
+            transform={id === "1" || id === "2" ? "rotate(80)" : "rotate(0)"}
           />
         </Flex>
       </Flex>

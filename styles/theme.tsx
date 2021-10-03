@@ -392,7 +392,7 @@ export const theme: Theme = {
       gap: 10,
       p: 20,
       width: "100%",
-      height: 100,
+      maxHeight: 150,
       borderTop: "1px solid #e6e6e6",
     },
   },
@@ -528,14 +528,6 @@ export const theme: Theme = {
           transform: "scale(1.2)",
         },
       },
-      ":active": {
-        ":after": {
-          transform: "scale(1)",
-        },
-        svg: {
-          transform: "scale(1)",
-        },
-      },
     },
     touchButton: {
       justifyContent: "center",
@@ -585,9 +577,6 @@ export const theme: Theme = {
       ":hover": {
         svg: { fill: "productType1", opacity: 1 },
       },
-      ":active": {
-        svg: { transform: "scale(0.8)" },
-      },
     },
 
     cartItem: {
@@ -602,9 +591,6 @@ export const theme: Theme = {
       cursor: "pointer",
       ":hover": {
         color: "productType1",
-      },
-      ":active": {
-        transform: "scale(0.8)",
       },
     },
     primary: {
@@ -642,9 +628,6 @@ export const theme: Theme = {
           transform: "translate3d(-50%, -50%, 0) scale(0)",
         },
       },
-      ":active": {
-        transform: "scale(0.9)",
-      },
     },
     secondary: {
       bg: "productType1",
@@ -680,103 +663,6 @@ export const theme: Theme = {
           transform: "translate3d(-50%, -50%, 0) scale(0)",
         },
       },
-      ":active": {
-        transform: "scale(0.9)",
-      },
-    },
-    select: {
-      variant: "buttons.base",
-      bg: "lightGray4",
-      color: "text",
-      borderColor: "lightGray4",
-    },
-    selected: {
-      variant: "buttons.primary",
-      filter: "none",
-    },
-    premium: {
-      variant: "buttons.base",
-      bg: "premium",
-      color: "lightGray4",
-      borderColor: "premium",
-    },
-    dropdown: {
-      variant: "buttons.base",
-      background: "white",
-      borderColor: "border",
-      color: "text",
-    },
-    tag: {
-      background: "secondary",
-      borderRadius: 56,
-      borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: "secondary",
-      fontSize: 2,
-      lineHeight: 1,
-      color: "lightGray4",
-      py: 15,
-      px: 40,
-    },
-    requestRed: {
-      color: "lightGray4",
-      background: "red",
-      fontSize: 3,
-      lineHeight: 2,
-      borderRadius: 20,
-      borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: "red",
-      cursor: "pointer",
-      transition: "0.3s",
-      ":hover": {
-        filter: "drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25))",
-      },
-    },
-    requestGreen: {
-      variant: "buttons.requestRed",
-      background: "green",
-      borderColor: "green",
-    },
-    requestGrey: {
-      variant: "buttons.requestRed",
-      background: "secondary",
-      borderColor: "secondary",
-    },
-    rectangle1: {
-      borderRadius: 5,
-      bg: "#3F680B",
-      borderWidth: 1,
-      borderColor: "secondary",
-      borderStyle: "solid",
-      p: 8,
-      fontSize: 2,
-      lineHeight: 1,
-      color: "lightGray4",
-      ":hover": {
-        filter: "drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25))",
-      },
-      flexShrink: 0,
-    },
-    time: {
-      variant: "buttons.base",
-      borderWidth: 1,
-      borderColor: "secondary",
-      borderRadius: 20,
-      px: 20,
-      py: 10,
-      bg: "white",
-      color: "text",
-      cursor: "pointer",
-      transition: "0.3s",
-      ":hover": {
-        borderColor: "primary",
-      },
-    },
-    timeActive: {
-      variant: "buttons.time",
-      borderColor: "primary",
-      color: "primary",
     },
   },
   images: {

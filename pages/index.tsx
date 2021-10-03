@@ -1,19 +1,17 @@
 import { Button, Flex, Grid, Image, Text } from "@theme-ui/components";
-import axios from "axios";
-import Head from "next/head";
 import Link from "next/link";
 import React, { FC, memo, SVGProps, useCallback, useState } from "react";
 import ChooseUs, { ChooseUsProps } from "../components/ChooseUs";
 import { ElementItem } from "../components/ElementsCard";
-import Footer from "../components/Footer";
-import Header, { HeaderProps } from "../components/Header";
+import { HeaderProps } from "../components/Header";
 import { ItemProps } from "../components/Menu";
-import Nav from "../components/Nav";
 import OfferCard, { OfferCardProps } from "../components/OfferCard";
 import ProductCard, { CardProps } from "../components/ProductCard";
-import useLocalStorage from "../hooks/useLocalStorage";
+import Layout from "../containers/Layout";
+import Product from "../models/Product";
+import db from "../utils/db";
 
-const menuItems: ItemProps[] = [
+export const menuItems: ItemProps[] = [
   { id: "1", label: "HOME" },
   {
     id: "2",
@@ -67,9 +65,11 @@ export const elements: ElementItem = {
   welcome: "images/avatar.jpg",
 };
 
-export const address: HeaderProps = {
+export const contact: HeaderProps = {
   street: "111 Đặng Thùy Trâm",
   address: "Phường 13, Quận Bình Thạnh, TP.HCM",
+  telephone: "+(84) 347.551.122",
+  mail: "kiet0708@gmail.com",
 };
 
 const offerItems: OfferCardProps[] = [
@@ -161,12 +161,7 @@ const AboutUsItems: AboutUsProps[] = [
 const Arrow: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     version="1.1"
-    id="Capa_1"
     xmlns="http://www.w3.org/2000/svg"
-    x="0px"
-    y="0px"
-    width="268.832px"
-    height="268.832px"
     viewBox="0 0 268.832 268.832"
     fill="currentColor"
     {...props}
@@ -241,88 +236,18 @@ const Van: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-interface indexProps {
-  data: CardProps[];
+export interface IndexProps {
+  products: CardProps[];
 }
 
-const index: FC<indexProps> = ({ data }) => {
-  const [cart, setCart] = useLocalStorage("cart", []);
+const index: FC<IndexProps> = ({ products }) => {
   const [page, setPage] = useState<number>(1);
-  const onAddCart = useCallback(
-    (id: string) => {
-      const index = cart.findIndex((item) => item.id === id);
-      if (index === -1) setCart([...cart, { id: id, quantity: 1 }]);
-      else {
-        cart[index].quantity += 1;
-        setCart(cart);
-      }
-    },
-    [cart]
-  );
-
   const onPage = useCallback((id: number) => {
     setPage(id);
   }, []);
 
-  const onPlus = useCallback(
-    (index: number) => {
-      cart[index].quantity += 1;
-      setCart(cart);
-    },
-    [cart]
-  );
-
-  const onMinus = useCallback(
-    (index: number) => {
-      cart[index].quantity > 1
-        ? (cart[index].quantity -= 1)
-        : cart.splice(index, 1);
-      setCart(cart);
-    },
-    [cart]
-  );
-
-  const onDelete = useCallback(
-    (index: number) => {
-      cart.splice(index, 1);
-      setCart(cart);
-    },
-    [cart]
-  );
-
   return (
-    <Flex
-      bg="white"
-      sx={{
-        width: "100%",
-        flexDirection: "column",
-        userSelect: "none",
-      }}
-    >
-      <Head>
-        <title>Sweet Bakery</title>
-        <link rel="shortcut icon" href="/images/bakery.jpg" />
-        <meta property="og:title" content="Bakery" />
-        <meta
-          property="og:image"
-          content="https://toppng.com/uploads/preview/51-bakery-icon-packs-dessert-pie-icon-115552356724bznqtsuv1.png"
-        />
-        <meta property="og:image:alt" content="bakery" />
-        <meta
-          property="og:description"
-          content="Chuyên buôn bán các loại bánh sỉ và lẽ"
-        />
-      </Head>
-      <Header {...address} />
-      <Nav
-        items={menuItems}
-        cart={cart}
-        data={data}
-        elements={elements}
-        onMinus={onMinus}
-        onPlus={onPlus}
-        onDelete={onDelete}
-      />
+    <Layout>
       <Flex
         sx={{
           height: 500,
@@ -484,7 +409,7 @@ const index: FC<indexProps> = ({ data }) => {
             NEW PRODUCTS
           </Text>
           <Grid gap={0} columns={[1, 2, 2, 3, 4]}>
-            {data.map((item) => (
+            {products.map((item) => (
               <Flex
                 key={item.id}
                 sx={{
@@ -492,7 +417,7 @@ const index: FC<indexProps> = ({ data }) => {
                   height: 460,
                 }}
               >
-                <ProductCard {...item} onAddCart={onAddCart} />
+                <ProductCard item={item} />
               </Flex>
             ))}
           </Grid>
@@ -854,18 +779,18 @@ const index: FC<indexProps> = ({ data }) => {
           <Image px={15} src="images/partner-5.png" />
         </Flex>
       </Flex>
-      <Footer />
-    </Flex>
+    </Layout>
   );
 };
 
-export const getStaticProps = async () => {
-  const res = await axios.get("https://cjlfu.sse.codesandbox.io/products");
-  const data: CardProps[] = res.data;
+export const getServerSideProps = async () => {
+  await db.connect();
+  const products: CardProps[] = await Product.find({}).lean();
+  await db.disconnect();
 
   return {
     props: {
-      data,
+      products: products.map(db.convertDocToObj),
     },
   };
 };

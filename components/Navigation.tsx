@@ -8,14 +8,12 @@ import React, {
   useState,
 } from "react";
 import Search from "./Search";
-import Cart, { CartProps } from "./Cart";
-import { ItemProps } from "./Menu";
-import { ElementItem } from "./ElementsCard";
+import Cart from "./Cart";
 import { Address, Mail } from "./Header";
 import Link from "next/link";
-import { address } from "../pages";
 import { Button } from "theme-ui";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import { contact } from "../pages";
 
 const ThreePoint: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -38,20 +36,7 @@ const ThreePoint: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-interface NavProps extends CartProps {
-  items: ItemProps[];
-  elements: ElementItem;
-}
-
-const Nav: FC<NavProps> = ({
-  items,
-  data,
-  cart,
-  onMinus,
-  onPlus,
-  onDelete,
-  elements,
-}) => {
+const Nav: FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
   const [isOpen, setIsOpen] = useState<Boolean>(false);
@@ -88,20 +73,12 @@ const Nav: FC<NavProps> = ({
           }}
         >
           <Search
-            items={items}
-            elements={elements}
             sx={{
               flex: 1,
               zIndex: 99,
             }}
           />
-          <Cart
-            data={data}
-            cart={cart}
-            onMinus={onMinus}
-            onPlus={onPlus}
-            onDelete={onDelete}
-          />
+          <Cart />
           <Flex
             ref={ref}
             sx={{
@@ -131,9 +108,7 @@ const Nav: FC<NavProps> = ({
                 ":hover": {
                   svg: { fill: "productType1", transition: "0.3s" },
                 },
-                ":active": {
-                  transform: "scale(0.9)",
-                },
+
                 svg: {
                   width: [22, 22, 22, 22, 0],
                 },
@@ -156,7 +131,7 @@ const Nav: FC<NavProps> = ({
                 transition: "0.3s",
               }}
             >
-              <Link href="/">
+              <Link href="/" passHref>
                 <Flex
                   sx={{
                     alignItems: "center",
@@ -173,12 +148,12 @@ const Nav: FC<NavProps> = ({
                     <Address width={35} height={35} />
                   </Flex>
                   <Flex sx={{ flexDirection: "column" }}>
-                    <Text variant="address">{address.street}</Text>
-                    <Text variant="address">{address.address}</Text>
+                    <Text variant="address">{contact.street}</Text>
+                    <Text variant="address">{contact.address}</Text>
                   </Flex>
                 </Flex>
               </Link>
-              <Link href="#">
+              <Link href="#" passHref>
                 <Flex
                   sx={{
                     width: "100%",

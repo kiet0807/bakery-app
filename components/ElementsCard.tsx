@@ -130,7 +130,9 @@ const CardElements: FC<ElementsProps> = ({ elements, ...BoxProps }) => {
         <Grid mb={20} columns={2}>
           {elements.element.map((item, index) => (
             <Text mt={20} variant="ElementContent" key={index}>
-              <Link href="#">{item}</Link>
+              <Link href="#" passHref>
+                {item}
+              </Link>
             </Text>
           ))}
         </Grid>
@@ -159,7 +161,9 @@ const CardElements: FC<ElementsProps> = ({ elements, ...BoxProps }) => {
         <Grid mb={20}>
           {elements.additional.map((item, index) => (
             <Text mt={20} variant="ElementContent" key={index}>
-              <Link href="#">{item}</Link>
+              <Link href="#" passHref>
+                {item}
+              </Link>
             </Text>
           ))}
         </Grid>

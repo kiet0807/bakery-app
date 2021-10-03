@@ -5,11 +5,13 @@ import {
   Flex,
   Grid,
   Image,
-  Link,
   Text,
 } from "@theme-ui/components";
-import React, { FC, memo, SVGProps, useState } from "react";
-import { formatCurrency } from "../utils/functions";
+import Link from "next/link";
+import React, { FC, memo, SVGProps, useCallback, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { formatCurrency } from "../utils/format";
+import { ProductProps } from "./Cart";
 
 const Search: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
@@ -57,68 +59,86 @@ const Cart: FC<SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export interface CardProps extends BoxProps {
+export interface CardProps {
   id?: string;
   image?: string;
   name?: string;
   descriptions?: string;
   priceOld?: number;
   price?: number;
-  productType?: string | undefined;
-  onAddCart?: (id: string) => void;
+  productType?: string;
+  slug?: string;
 }
 
-const ProductCard: FC<CardProps> = ({
-  id,
-  name,
-  descriptions,
-  image,
-  priceOld,
-  price,
-  productType,
-  onAddCart,
-  ...BoxProps
-}) => {
+interface ProductCard extends BoxProps {
+  item: CardProps;
+}
+
+const ProductCard: FC<ProductCard> = ({ item, ...BoxProps }) => {
   const [firstBtn, setFirstBtn] = useState<Boolean>(false);
   const [secondBtn, setSecondBtn] = useState<Boolean>(false);
+  const [cart, setCart] = useLocalStorage<ProductProps[]>("cart", []);
+
+  const onAddCart = useCallback(
+    (id: string) => {
+      const index = cart.findIndex((item) => item.product.id === id);
+      if (index === -1) setCart([...cart, { product: item, quantity: 1 }]);
+      else {
+        cart[index].quantity += 1;
+        setCart(cart);
+      }
+    },
+    [cart]
+  );
   return (
     <Flex {...BoxProps}>
       <Card variant="productCard">
-        <Flex
-          mb={20}
-          sx={{
-            position: "relative",
-            justifyContent: "center",
-            width: 230,
-            height: 200,
-          }}
-        >
-          <Image variant="productImage" src={image} />
-          <Text
-            variant="productType"
-            bg={
-              productType === "sale"
-                ? "productType1"
-                : productType && "productType2"
-            }
+        <Link href={`/product/${item.slug}`} passHref>
+          <Flex
+            sx={{
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+              cursor: "pointer",
+            }}
           >
-            {productType}
-          </Text>
-        </Flex>
-        <Text variant="productName">{name}</Text>
-        <Text variant="productDescription">{descriptions}</Text>
-        <Flex my={5}>
-          {priceOld && (
-            <Text variant="productPriceOld">
-              {formatCurrency(priceOld)}
-              <Text as="sup">đ</Text>
-            </Text>
-          )}
-          <Text ml={12} variant="productPrice">
-            {formatCurrency(price)}
-            <Text as="sup">đ</Text>
-          </Text>
-        </Flex>
+            <Flex
+              mb={20}
+              sx={{
+                position: "relative",
+                justifyContent: "center",
+                width: 230,
+                height: 200,
+              }}
+            >
+              <Image variant="productImage" src={item.image} alt={item.image} />
+              <Text
+                variant="productType"
+                bg={
+                  item.productType === "sale"
+                    ? "productType1"
+                    : item.productType && "productType2"
+                }
+              >
+                {item.productType}
+              </Text>
+            </Flex>
+            <Text variant="productName">{item.name}</Text>
+            <Text variant="productDescription">{item.descriptions}</Text>
+            <Flex my={5}>
+              {item.priceOld && (
+                <Text variant="productPriceOld">
+                  {formatCurrency(item.priceOld)}
+                  <Text as="sup">đ</Text>
+                </Text>
+              )}
+              <Text ml={12} variant="productPrice">
+                {formatCurrency(item.price)}
+                <Text as="sup">đ</Text>
+              </Text>
+            </Flex>
+          </Flex>
+        </Link>
         <Grid
           columns={2}
           pb={10}
@@ -134,7 +154,7 @@ const ProductCard: FC<CardProps> = ({
               alignItems: "center",
             }}
           >
-            <Link href="#">
+            <Link href="#" passHref>
               <Button
                 variant="productButton"
                 onMouseOver={() => setFirstBtn(true)}
@@ -155,7 +175,7 @@ const ProductCard: FC<CardProps> = ({
             }}
           >
             <Button
-              onClick={() => onAddCart(id)}
+              onClick={() => onAddCart(item.id)}
               onMouseOver={() => setSecondBtn(true)}
               onMouseLeave={() => setSecondBtn(false)}
               variant="productButton"
