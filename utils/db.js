@@ -15,9 +15,11 @@ async function connect() {
     }
     await mongoose.disconnect();
   }
+
+  const MONGODB_URI =
+    "mongodb+srv://kiet87:kiet0347551122@cluster0.nltqm.mongodb.net/account?retryWrites=true&w=majority";
   const db = await mongoose.connect(
-    process.env.MONGODB_URI ||
-      "mongodb+srv://kiet87:kiet0347551122@cluster0.nltqm.mongodb.net/account?retryWrites=true&w=majority",
+    process.env.MONGODB_URI || MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log("Connected")
   );
