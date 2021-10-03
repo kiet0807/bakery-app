@@ -16,7 +16,8 @@ async function connect() {
     await mongoose.disconnect();
   }
   const db = await mongoose.connect(
-    process.env.MONGODB_URI,
+    process.env.MONGODB_URI ||
+      "mongodb+srv://kiet87:kiet0347551122@cluster0.nltqm.mongodb.net/account?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log("Connected")
   );
